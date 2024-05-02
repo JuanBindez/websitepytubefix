@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pytubefix Versions</title>
+    <style>
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .version {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Pytubefix Versions</h1>
+        <div id="versions"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('https://raw.githubusercontent.com/JuanBindez/pytubefix/v5dev/pytubefix/version.json')
+                .then(response => response.json())
+                .then(data => {
+                    const versionsDiv = document.getElementById('versions');
+                    const mainlineVersion = data.mainline;
+                    const stableVersion = data.stable;
+
+                    const mainlineElement = document.createElement('div');
+                    mainlineElement.classList.add('version');
+                    mainlineElement.textContent = `Mainline Version: ${mainlineVersion}`;
+                    versionsDiv.appendChild(mainlineElement);
+
+                    const stableElement = document.createElement('div');
+                    stableElement.classList.add('version');
+                    stableElement.textContent = `Stable Version: ${stableVersion}`;
+                    versionsDiv.appendChild(stableElement);
+                })
+                .catch(error => console.error('Error fetching versions:', error));
+        });
+    </script>
+</body>
+</html>
